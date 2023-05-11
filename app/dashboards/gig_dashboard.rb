@@ -9,8 +9,10 @@ class GigDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    doors: Field::DateTime,
+    date: Field::Date,
+    doors: Field::Time,
     name: Field::String,
+    socials: Field::String,
     venue: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -23,17 +25,19 @@ class GigDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
+    date
     doors
     name
-    venue
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
+    date
     doors
     name
+    socials
     venue
     created_at
     updated_at
@@ -43,8 +47,10 @@ class GigDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+    date
     doors
     name
+    socials
     venue
   ].freeze
 

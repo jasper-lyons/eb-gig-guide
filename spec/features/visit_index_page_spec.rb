@@ -14,6 +14,7 @@ feature 'Guest visits the index page' do
       expect(page).to have_content(gig.name)
       expect(page).to have_content(gig.venue)
       expect(page).to have_content(gig.doors_time_only.strip)
+      expect(page).to have_content(gig.socials)
     end
   end
 
