@@ -1,14 +1,13 @@
 class GigsController < ApplicationController
-  before_action :set_gig, only: %i[ show edit update destroy ]
+  before_action :set_gig, only: %i[show edit update destroy]
 
   # GET /gigs or /gigs.json
   def index
-    @gigs = Gig.all
+    @gigs = Gig.all.order(date: :desc)
   end
 
   # GET /gigs/1 or /gigs/1.json
-  def show
-  end
+  def show; end
 
   # GET /gigs/new
   def new
@@ -16,8 +15,7 @@ class GigsController < ApplicationController
   end
 
   # GET /gigs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /gigs or /gigs.json
   def create
@@ -25,7 +23,7 @@ class GigsController < ApplicationController
 
     respond_to do |format|
       if @gig.save
-        format.html { redirect_to gig_url(@gig), notice: "Gig was successfully created." }
+        format.html { redirect_to gig_url(@gig), notice: 'Gig was successfully created.' }
         format.json { render :show, status: :created, location: @gig }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +36,7 @@ class GigsController < ApplicationController
   def update
     respond_to do |format|
       if @gig.update(gig_params)
-        format.html { redirect_to gig_url(@gig), notice: "Gig was successfully updated." }
+        format.html { redirect_to gig_url(@gig), notice: 'Gig was successfully updated.' }
         format.json { render :show, status: :ok, location: @gig }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +50,20 @@ class GigsController < ApplicationController
     @gig.destroy
 
     respond_to do |format|
-      format.html { redirect_to gigs_url, notice: "Gig was successfully destroyed." }
+      format.html { redirect_to gigs_url, notice: 'Gig was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_gig
-      @gig = Gig.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def gig_params
-      params.require(:gig).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_gig
+    @gig = Gig.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def gig_params
+    params.require(:gig).permit(:name)
+  end
 end
