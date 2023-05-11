@@ -1,5 +1,5 @@
-<div id="<%= dom_id gig %>">
-  <p class="my-5">
+<div class="mt-5" id="<%= dom_id gig %>">
+  <p>
     <% if action_name != "show" %>
       <%= link_to gig.name, gig, class: "underline" %>
     <% else %>
@@ -8,6 +8,9 @@
   </p>
   <p>
     <%= gig.venue %>
+  </p>
+  <p>
+    <%= gig.doors_time_only %>
   </p>
   <hr class="mt-6">
 </div>
