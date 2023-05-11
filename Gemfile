@@ -10,6 +10,7 @@ gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 gem 'sprockets-rails'
 
 # Use sqlite3 as the database for Active Record
+gem 'pg'
 gem 'sqlite3', '~> 1.4'
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -45,6 +46,10 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
+gem 'administrate', '~> 0.18.0'
+
+gem 'factory_bot_rails', '~> 6.2'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 
@@ -75,7 +80,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-gem 'administrate', '~> 0.18.0'
-
-gem 'factory_bot_rails', '~> 6.2'
