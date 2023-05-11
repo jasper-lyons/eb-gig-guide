@@ -12,7 +12,7 @@
     <% @gigs.each do |gig| %>
       <% if previous_gig.nil? || gig.date != previous_gig.date %>
         <h3 class="text-3xl mt-4">
-          <%= Date.parse(gig.date).strftime("%^a %-d %^b") %>
+          <%= gig.date&.strftime("%^a %-d %^b") %>
         </h3>
         <hr class="mt-5">
       <% end %>
