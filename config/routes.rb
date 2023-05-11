@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'gigs#index'
 
-  resource :gig, only: %i[index show]
+  resources :gigs, only: %i[index show]
 
   namespace :admin do
     resources :gigs

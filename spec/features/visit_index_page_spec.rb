@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Guest visits the index page' do
-  scenario 'They see the set of gigs currently on' do
+  scenario 'they see the set of gigs currently on' do
     gigs = [
       create(:gig),
       create(:gig),
@@ -13,5 +13,15 @@ feature 'Guest visits the index page' do
     gigs.each do |gig|
       expect(page).to have_content(gig.name)
     end
+  end
+
+  scenario 'they visit a specific gig' do
+    gig = create(:gig)
+
+    visit root_path
+
+    click_link(gig.name)
+
+    expect(page).to have_content(gig.name)
   end
 end
