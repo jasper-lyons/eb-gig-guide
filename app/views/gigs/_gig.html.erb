@@ -1,10 +1,13 @@
 <div id="<%= dom_id gig %>">
   <p class="my-5">
     <% if action_name != "show" %>
-      <%= link_to gig.name, gig, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+      <%= link_to gig.name, gig, class: "underline" %>
     <% else %>
       <%= gig.name %>
     <% end %>
+  </p>
+  <p>
+    <%= gig.venue %>
   </p>
   <hr class="mt-6">
 </div>

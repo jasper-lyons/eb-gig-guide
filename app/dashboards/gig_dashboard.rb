@@ -10,6 +10,7 @@ class GigDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    venue: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -22,8 +23,8 @@ class GigDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
+    venue
     created_at
-    updated_at
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -31,6 +32,7 @@ class GigDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    venue
     created_at
     updated_at
   ].freeze
@@ -40,6 +42,7 @@ class GigDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    venue
   ].freeze
 
   # COLLECTION_FILTERS

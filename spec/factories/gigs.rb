@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :gig do
-    name { "MyString" }
+    name { 'name-' + (0...8).map { rand(65..90).chr }.join }
+    venue { 'venue-' + (0...8).map { rand(65..90).chr }.join }
   end
 end
