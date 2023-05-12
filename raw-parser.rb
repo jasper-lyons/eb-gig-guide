@@ -1,9 +1,53 @@
 require 'date'
 require 'time'
+
+class YearCounter
+  MONTH_STATES = {
+    dec: :nov,
+    nov: :oct,
+    oct: :sep,
+    sep: :aug,
+    aug: :jul,
+    jul: :jun,
+    jun: :may,
+    may: :apr,
+    apr: :mar,
+    mar: :feb,
+    feb: :jan,
+    jan: :dec
+  }
+
+  def initialize(year, month)
+    @year = year
+    @month = month&.to_sym
+  end
+
+  def next_month(month)
+    if @month.nil?
+      @month = month.to_sym
+      return
+    end
+
+    return unless MONTH_STATES[@month] == month.to_sym
+
+    @year -= 1 if @month == :jan
+
+    @month = month.to_sym
+  end
+
+  def year_for_month(month)
+    if @month == :dec && month.to_sym == :jan
+      @year - 1
+    else
+      @year
+    end
+  end
+end
+
+year_counter = YearCounter.new(2023, nil)
 year = 2023
 day = nil
 month = nil
-previous_month = nil
 name = []
 venue = nil
 socials = []
@@ -19,8 +63,8 @@ File.readlines('raw.txt').each do |line|
     day, month = line.split(' ').drop(1)
     day = day.sub(/(TH|th|st|nd|rd)/, '')
     month = month.downcase
-    year -= 1 if month != previous_month && month == 'dec' && previous_month == 'jan'
-    previous_month = month
+    year_counter.next_month(month)
+    year = year_counter.year_for_month(month)
   when "\n"
     if name.size > 0 && venue
       meridian = if !is_am.nil?
@@ -48,6 +92,7 @@ File.readlines('raw.txt').each do |line|
     ends_at = nil
     is_am = nil
   when /^[0-9]{1,2}(\.[0-9]{2})?(-[0-9]{1,2}(\.[0-9]{2})?)?(a|p)m/
+    venue ||= name.pop
     is_am = line.include? 'am'
 
     starts_at, ends_at = line.gsub(/(a|p)m/, '').split(' ').first.split('-')
