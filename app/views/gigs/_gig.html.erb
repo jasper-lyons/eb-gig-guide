@@ -1,10 +1,6 @@
-<div class="mt-5" id="<%= dom_id gig %>">
+<div id="<%= dom_id gig %>">
   <p class="text-xl">
-    <% if action_name != "show" %>
-      <%= link_to gig.name, gig, class: "underline" %>
-    <% else %>
-      <%= gig.name %>
-    <% end %>
+    <%= gig.name %>
   </p>
   <p>
     <%= gig.venue %>
