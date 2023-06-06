@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :gigs
+    resources :venues
 
     root to: 'gigs#index'
   end
