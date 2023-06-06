@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet"> <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -18,7 +21,7 @@
       </h1>
     </div>
     <div class="p-8 space-y-8 bg-black">
-      <h2 class="text-5xl uppercase text-white text-center">
+      <h2 class="text-6xl uppercase text-white text-center font-display">
         What's on this week?
       </h2>
       <%= image_tag("gig-guide-logo.jpg", class: "w-96 mx-auto") %>

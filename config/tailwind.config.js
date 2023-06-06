@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Inter Font',...defaultTheme.fontFamily.sans],
+        display: ['Bebas Neue']
       },
     },
   },
