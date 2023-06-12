@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_06_101415) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_12_055347) do
   create_table "analytics_events", force: :cascade do |t|
     t.string "path"
     t.string "method"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ip_address"
+    t.string "user_agent"
   end
 
   create_table "gigs", force: :cascade do |t|
