@@ -1,5 +1,6 @@
 require 'date'
 require 'time'
+require 'csv'
 
 class YearCounter
   MONTH_STATES = {
@@ -44,6 +45,27 @@ class YearCounter
   end
 end
 
+class VenueNormaliser
+  def self.from_csv(rows)
+    new(rows.flat_map do |identity, *rest|
+      keys = [identity.downcase] + rest
+      keys.map { |key| [key.strip, identity] }
+    end.to_h)
+  end
+
+  def initialize(venue_mapping)
+    @mapping = venue_mapping
+  end
+
+  attr_accessor :mapping
+
+  def normalize(venue)
+    raise "#{venue.inspect} missing from mapping!" unless @mapping.key?(venue)
+
+    @mapping[venue]
+  end
+end
+
 year_counter = YearCounter.new(2023, nil)
 year = 2023
 day = nil
@@ -57,9 +79,11 @@ is_am = nil
 
 gigs = []
 
-File.readlines('raw.txt').each do |line|
+venue_normalizer = VenueNormaliser.from_csv(CSV.readlines('venues.csv'))
+
+File.readlines(ARGV[0] || 'raw.txt').each do |line|
   case line
-  when /^(MON|Mon)/, /^(TUES|Tues|TUE|Tue)/, /^(WED|Wed)/, /^(THU|Thu|THUR|Thur|THURS|Thurs)/, /^(FRI|Fri)/, /^(SAT|Sat)/, /^(SUN|Sun)/
+  when /^(MON|Mon) /, /^(TUES|Tues|TUE|Tue) /, /^(WED|Wed) /, /^(THU|Thu|THUR|Thur|THURS|Thurs) /, /^(FRI|Fri) /, /^(SAT|Sat) /, /^(SUN|Sun) /
     day, month = line.split(' ').drop(1)
     day = day.sub(/(TH|th|st|nd|rd)/, '')
     month = month.downcase
@@ -78,7 +102,7 @@ File.readlines('raw.txt').each do |line|
                  end
       gigs.append({
                     name: name.join.strip,
-                    venue: venue.strip,
+                    venue: venue_normalizer.normalize(venue.downcase.strip),
                     socials: socials.join(', '),
                     date: DateTime.parse("#{day} #{month} #{year}"),
                     doors: starts_at ? Time.parse(starts_at.sub('.', ':') + meridian) : nil,
@@ -105,7 +129,9 @@ File.readlines('raw.txt').each do |line|
   end
 end
 
-require 'csv'
+gigs.group_by do |g|
+  g[:venue].downcase
+end.transform_values { |v| v.count }.to_a.sort_by(&:last).each { |venue, count| puts "#{venue}: #{count}" }
 
 CSV.open('gigs.csv', 'w', headers: gigs.first.keys) do |csv|
   gigs.each do |gig|
