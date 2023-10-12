@@ -7,7 +7,7 @@
     <% previous_gig = nil %>
     <% @gigs.each do |gig| %>
       <% if previous_gig.nil? || gig.date != previous_gig.date %>
-        <h3 class="text-3xl mt-5">
+        <h3 class="text-3xl mt-5" data-date="<%= gig.date %>">
           <%= gig.date&.strftime("%^a %-d %^b") %>
         </h3>
       <% end %>
@@ -17,4 +17,22 @@
       <% end %>
     <% end %>
   </div>
+
+  <script>
+
+    function isToday(date) {
+      var today = new Date()
+      return date.getDate() == today.getDate() &&
+        date.getMonth() == today.getMonth() &&
+        date.getFullYear() == today.getFullYear();
+    }
+
+    var days = document.querySelectorAll("[data-date]");
+    for (day of days) {
+      if (isToday(new Date(day.dataset.date))) {
+        day.scrollIntoView();
+        break;
+      }
+    }
+  </script>
 </div>
