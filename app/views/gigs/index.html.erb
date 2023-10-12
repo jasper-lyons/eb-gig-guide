@@ -27,12 +27,15 @@
         date.getFullYear() == today.getFullYear();
     }
 
-    var days = document.querySelectorAll("[data-date]");
-    for (day of days) {
-      if (isToday(new Date(day.dataset.date))) {
-        day.scrollIntoView();
-        break;
+    document.addEventListener("turbo:load", function () {
+      var days = document.querySelectorAll("[data-date]")
+
+      for (day of days) {
+        if (isToday(new Date(day.dataset.date))) {
+          day.scrollIntoView()
+          break;
+        }
       }
-    }
+    })
   </script>
 </div>
