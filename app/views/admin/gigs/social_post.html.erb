@@ -1,0 +1,49 @@
+<header class="main-content__header flex">
+  <h1 class="main-content__page-title"  id="page-title">
+    Social Post
+  </h1>
+
+  <%= form_with url: social_post_admin_gigs_path, method: :get, class: '' do |form| %>
+    <div class="flex space-x-4 items-center">
+
+      <div>
+        <%= form.label :start_date %>
+        <%= form.date_field :start_date %>
+      </div>
+
+      <div>
+        <%= form.label :end_date %>
+        <%= form.date_field :end_date %>
+      </div>
+      <%= form.submit "Create", class: "px-3 py-2 h-auto" %>
+    </div>
+  <% end %>
+</header>
+
+<div class="p-4">
+  <% if @days %>
+    <h2>
+      <% if @start_date.month != @end_date.month %>
+        <%= @start_date.day %> <%= @start_date.strftime("%b").upcase %> - <%= @end_date.day %> <%= @end_date.strftime("%b").upcase %>
+      <% else %>
+        <%= @start_date.day %>-<%= @end_date.day %> <%= @end_date.strftime("%b").upcase %>
+      <% end %>
+    </h2>
+
+    <div>
+      <% @days.each do |day, gigs| %>
+        <br/>
+        <h3><%= day.strftime("%a %d %b").upcase %></h3>
+
+        <div>
+          <% gigs.each do |gig| %>
+            <br/>
+            <h4><%= gig.name %><h4/>
+                <div><%= gig.venue %></div>
+                <div><%= gig.doors.strftime("%l:%M%p").strip.downcase %></div>
+              <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

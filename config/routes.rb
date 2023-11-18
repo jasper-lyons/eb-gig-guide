@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :gigs, only: %i[index show]
 
   namespace :admin do
-    resources :gigs
+    resources :gigs do
+      collection do
+        get 'social_post', to: 'gigs#social_post'
+      end
+    end
     resources :venues
 
     root to: 'gigs#index'

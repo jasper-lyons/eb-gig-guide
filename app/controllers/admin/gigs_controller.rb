@@ -42,5 +42,16 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
+
+    def social_post
+      @start_date = Date.parse(params[:start_date]) rescue nil
+      @end_date = Date.parse(params[:end_date]) rescue nil
+
+      if @start_date && @end_date
+        @days = Gig.where(date: @start_date..@end_date)
+                   .order(date: :asc)
+                   .group_by { |gig| gig.date }
+      end
+    end
   end
 end
