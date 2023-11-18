@@ -49,7 +49,7 @@ module Admin
 
       if @start_date && @end_date
         @days = Gig.where(date: @start_date..@end_date)
-                   .order(date: :asc)
+                   .order(date: :asc, doors: :asc)
                    .group_by { |gig| gig.date }
       end
     end
