@@ -11,6 +11,7 @@ class GigDashboard < Administrate::BaseDashboard
     id: Field::Number,
     date: Field::Date,
     doors: Field::Time,
+    event_link: Field::String,
     name: Field::String,
     socials: Field::String,
     venue: Field::String,
@@ -36,6 +37,7 @@ class GigDashboard < Administrate::BaseDashboard
     id
     date
     doors
+    event_link
     name
     socials
     venue
@@ -49,6 +51,7 @@ class GigDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     date
     doors
+    event_link
     name
     socials
     venue

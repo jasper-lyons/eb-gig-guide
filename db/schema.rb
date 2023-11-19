@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_12_055347) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_19_160116) do
   create_table "analytics_events", force: :cascade do |t|
     t.string "path"
     t.string "method"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_12_055347) do
     t.string "socials"
     t.date "date"
     t.time "doors"
+    t.string "event_link"
   end
 
   create_table "venues", force: :cascade do |t|
