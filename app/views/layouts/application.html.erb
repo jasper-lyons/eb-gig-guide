@@ -16,18 +16,15 @@
   </head>
 
   <body>
-    <div>
-      <h1 class="text-2xl p-4">
+    <div class="flex content-center">
+      <h1 class="text-2xl p-4 mr-auto">
         Eastbourne Gig Guide
       </h1>
+      <div class="px-5 flex items-center"> 
+        <%= content_for(:nav) %>
+      </div>
     </div>
-    <div class="p-8 space-y-8 bg-black">
-      <h2 class="text-6xl uppercase text-white text-center font-display">
-        What's on this week?
-      </h2>
-      <%= image_tag("gig-guide-logo.jpg", class: "w-96 mx-auto") %>
-    </div>
-    <main class="container mx-auto px-5 flex">
+    <main class="mx-auto flex">
       <%= yield %>
     </main>
   </body>

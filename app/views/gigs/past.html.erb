@@ -1,0 +1,32 @@
+<% content_for(:nav) do %>
+  <%= link_to('Current Gigs', gigs_path, class: 'text-center underline text-lg') %>
+<% end %>
+
+<div class="w-full">
+
+  <div class="p-8 space-y-8 bg-black">
+    <h2 class="text-6xl uppercase text-white text-center font-display">
+      Gigs of times gone past
+    </h2>
+    <%= image_tag("gig-guide-logo.jpg", class: "w-96 mx-auto") %>
+  </div>
+
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div id="gigs" class="min-w-full px-6">
+    <% previous_gig = nil %>
+    <% @gigs.each do |gig| %>
+      <% if previous_gig.nil? || gig.date != previous_gig.date %>
+        <h3 class="text-3xl mt-5" data-date="<%= gig.date %>">
+          <%= gig.date&.strftime("%^a %-d %^b") %>
+        </h3>
+      <% end %>
+      <% previous_gig = gig %>
+      <%= link_to gig, class: "-ml-2 block bg-gray-100 hover:bg-gray-200 p-2 mt-5" do %>
+        <%= render gig %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

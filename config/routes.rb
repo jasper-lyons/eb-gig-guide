@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'gigs#index'
 
-  resources :gigs, only: %i[index show]
+  resources :gigs, only: %i[index show] do
+    get 'past', to: 'gigs#past', on: :collection
+  end
 
   namespace :admin do
     resources :gigs do

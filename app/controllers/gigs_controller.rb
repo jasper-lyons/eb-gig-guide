@@ -3,7 +3,13 @@ class GigsController < ApplicationController
 
   # GET /gigs or /gigs.json
   def index
-    @gigs = Gig.all.order(date: :asc).where("date >= ?", Date.today)
+    @gigs = Gig.all.order(date: :asc)
+      .where("date >= ?", Date.today)
+  end
+
+  def past
+    @gigs = Gig.all.order(date: :desc)
+      .where("date < ?", Date.today)
   end
 
   # GET /gigs/1 or /gigs/1.json
