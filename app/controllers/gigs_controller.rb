@@ -9,6 +9,7 @@ class GigsController < ApplicationController
   end
 
   def past
+    @subscriber = Subscriber.new
     @gigs = Gig.all.order(date: :desc)
       .where("date < ?", Date.today)
   end

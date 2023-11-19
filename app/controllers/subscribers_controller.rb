@@ -4,7 +4,10 @@ class SubscribersController < ApplicationController
 
     respond_to do |format|
       if @subscriber.save
-        format.html { redirect_to gigs_url, notice: 'Welcome to the community!' }
+        format.html do
+          flash[:notice] = 'Welcome to the community!'
+          redirect_back(fallback_location: gigs_url)
+        end
         format.json { render :show, status: :created, location: @subscriber }
       else
         format.html { render :new, status: :unprocessable_entity }

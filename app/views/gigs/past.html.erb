@@ -9,11 +9,34 @@
       Gigs of times gone past
     </h2>
     <%= image_tag("gig-guide-logo.jpg", class: "w-96 mx-auto") %>
-  </div>
 
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+    <h3 class="text-xl text-white text-center">
+      <% if notice.present? %>
+        <span id="notice"><%= notice %></span>
+      <% else %>
+        Join the mailing list!
+      <% end %>
+    </h3>
+    <%= form_with(model: @subscriber) do |form| %>
+      <% if @subscriber.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+          <h2><%= pluralize(@subscriber.errors.count, "error") %> prohibited creating a subscription:</h2>
+
+          <ul>
+            <% subscription.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+
+      <div class="my-5 flex max-w-lg mx-auto">
+        <%= form.text_field :email, placeholder: "Email", class: "block shadow rounded-l-lg border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+        <%= form.submit "Subscribe", class: "rounded-r-lg mt-2 py-2 px-3 bg-blue-600 text-white inline-block font-medium cursor-pointer border-1 border-blue-600" %>
+      </div>
+    <% end %>
+  </div>
 
   <div id="gigs" class="min-w-full px-6">
     <% previous_gig = nil %>
