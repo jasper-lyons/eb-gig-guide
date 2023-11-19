@@ -3,6 +3,7 @@ class GigsController < ApplicationController
 
   # GET /gigs or /gigs.json
   def index
+    @subscriber = Subscriber.new
     @gigs = Gig.all.order(date: :asc)
       .where("date >= ?", Date.today)
   end

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     get 'past', to: 'gigs#past', on: :collection
   end
 
+  resources :subscribers, only: %i[create]
+
   namespace :admin do
     resources :gigs do
       collection do
@@ -12,6 +14,7 @@ Rails.application.routes.draw do
       end
     end
     resources :venues
+    resources :subscribers
 
     root to: 'gigs#index'
   end

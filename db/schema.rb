@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_160116) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_19_162407) do
   create_table "analytics_events", force: :cascade do |t|
     t.string "path"
     t.string "method"
@@ -29,6 +29,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_160116) do
     t.date "date"
     t.time "doors"
     t.string "event_link"
+  end
+
+  create_table "subscribers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "string"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "venues", force: :cascade do |t|
