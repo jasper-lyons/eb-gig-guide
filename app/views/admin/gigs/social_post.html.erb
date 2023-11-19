@@ -38,10 +38,14 @@
         <div>
           <% gigs.each do |gig| %>
             <br/>
-            <h4><%= gig.name %><h4/>
-                <div><%= gig.venue %></div>
-                <div><%= gig.doors.strftime("%l:%M%p").strip.downcase %></div>
-              <% end %>
+            <% if gig.event_link %>
+              <%= link_to(gig.name, gig.event_link, class: "underline text-blue-500") %>
+            <% else %>
+              <h4><%= gig.name %><h4/>
+            <% end %>
+            <div><%= gig.venue %></div>
+            <div><%= gig.doors.strftime("%l:%M%p").strip.downcase %></div>
+          <% end %>
         </div>
       <% end %>
     </div>
