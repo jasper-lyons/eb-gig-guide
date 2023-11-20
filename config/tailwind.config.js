@@ -11,7 +11,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter Font',...defaultTheme.fontFamily.sans],
-        display: ['Bebas Neue']
+        display: ['Cabin Sketch']
       },
     },
   },
