@@ -33,16 +33,12 @@
     <div>
       <% @days.each do |day, gigs| %>
         <br/>
-        <h3><%= day.strftime("%a %d %b").upcase %></h3>
+        <div><%= day.strftime("%a %d %b").upcase %></div>
 
         <div>
           <% gigs.each do |gig| %>
             <br/>
-            <% if gig.event_link %>
-              <%= link_to(gig.name, gig.event_link, class: "underline text-blue-500") %>
-            <% else %>
-              <h4><%= gig.name %><h4/>
-            <% end %>
+            <div><%= gig.name %><div/>
             <div><%= gig.venue %></div>
             <div><%= gig.doors.strftime("%l:%M%p").strip.downcase %></div>
           <% end %>
