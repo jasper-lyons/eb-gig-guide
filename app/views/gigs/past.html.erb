@@ -41,9 +41,11 @@
     <% previous_gig = nil %>
     <% @gigs.each do |gig| %>
       <% if previous_gig.nil? || gig.date != previous_gig.date %>
-        <h3 class="text-3xl mt-5" data-date="<%= gig.date %>">
-          <%= gig.date&.strftime("%^a %-d %^b") %>
-        </h3>
+        <%= link_to "##{gig.date}", class: "underline" do %>
+          <h3 class="text-3xl mt-5" data-date="<%= gig.date %>" id="<%= gig.date %>">
+            <%= gig.date&.strftime("%^a %-d %^b") %>
+          </h3>
+        <% end %>
       <% end %>
       <% previous_gig = gig %>
       <%= link_to gig, class: "-ml-2 block bg-gray-100 hover:bg-gray-200 p-2 mt-5" do %>
