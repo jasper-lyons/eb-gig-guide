@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     resources :venues
     resources :subscribers
+    resources :acts
 
     root to: 'gigs#index'
   end

@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_162407) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_24_165226) do
+  create_table "act_gigs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "acts", force: :cascade do |t|
+    t.string "name"
+    t.string "weblink"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "original"
+  end
+
+  create_table "acts_gigs", force: :cascade do |t|
+    t.integer "act_id"
+    t.integer "gig_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["act_id"], name: "index_acts_gigs_on_act_id"
+    t.index ["gig_id"], name: "index_acts_gigs_on_gig_id"
+  end
+
   create_table "analytics_events", force: :cascade do |t|
     t.string "path"
     t.string "method"
@@ -45,4 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_162407) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "acts_gigs", "acts"
+  add_foreign_key "acts_gigs", "gigs"
 end

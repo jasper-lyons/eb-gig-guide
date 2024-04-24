@@ -1,4 +1,7 @@
 class Gig < ApplicationRecord
+  has_many :acts_gig
+  has_many :acts, through: :acts_gig
+
   def doors_time_only
     doors&.strftime('%l:%M%P')
   end

@@ -8,6 +8,16 @@
   <p>
     <%= gig.doors_time_only %>
   </p>
+
+  <p>
+  <% if link_acts %>
+    <%= gig.acts.map { |act| link_to(act.name, act.weblink, class: 'underline') }.join(", ").html_safe %>
+  <% else %>
+    <%= @link_acts %>
+    <%= gig.acts.map { |act| act.name }.join(", ").html_safe %>
+  <% end %>
+  </p>
+
   <p>
     <%= gig.socials %>
   </p>

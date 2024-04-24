@@ -1,12 +1,5 @@
 module Admin
-  class GigsController < Admin::ApplicationController
-    def default_sorting_attribute
-      :id
-    end
-
-    def default_sorting_direction
-      :desc
-    end
+  class ActsController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
@@ -49,16 +42,5 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
-
-    def social_post
-      @start_date = Date.parse(params[:start_date]) rescue nil
-      @end_date = Date.parse(params[:end_date]) rescue nil
-
-      if @start_date && @end_date
-        @days = Gig.where(date: @start_date..@end_date)
-                   .order(date: :asc, doors: :asc)
-                   .group_by { |gig| gig.date }
-      end
-    end
   end
 end
