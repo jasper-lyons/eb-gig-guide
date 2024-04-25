@@ -11,7 +11,7 @@
 
   <p>
   <% if link_acts %>
-    <%= gig.acts.map { |act| link_to(act.name, act.weblink, class: 'underline') }.join(", ").html_safe %>
+    <%= gig.acts.map { |act| act.weblink.blank? ? act.name : link_to(act.name, act.weblink, class: 'underline') }.join(", ").html_safe %>
   <% else %>
     <%= @link_acts %>
     <%= gig.acts.map { |act| act.name }.join(", ").html_safe %>
