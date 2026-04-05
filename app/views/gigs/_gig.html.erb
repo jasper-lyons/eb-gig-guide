@@ -19,6 +19,12 @@
   </p>
 
   <p>
-    <%= gig.socials %>
+    <%= gig.socials.split.map { |social| 
+      link_to(
+        social,
+        "https://instagram.com/#{social.delete('@')}", 
+        target: '_blank', 
+        class: 'underline')
+    }.join(" ").html_safe %>
   </p>
 </div>

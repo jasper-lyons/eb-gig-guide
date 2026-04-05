@@ -2,8 +2,18 @@ class Gig < ApplicationRecord
   has_many :acts_gig
   has_many :acts, through: :acts_gig
 
+  before_save :add_at_symbol_to_socials
+
   def doors_time_only
     doors&.strftime('%l:%M%P')
+  end
+
+  def add_at_symbol_to_socials
+    return if socials.blank?
+    tagged_socials = socials.scan(/\w+/).map { 
+      |social| social.start_with?('@') ? social : "@#{social}"
+    }
+    self.socials = tagged_socials.join(' ')
   end
 
   def date
