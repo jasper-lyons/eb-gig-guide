@@ -277,6 +277,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
@@ -284,6 +285,7 @@ DEPENDENCIES
   bootsnap
   capybara
   debug
+  dotenv (~> 2.8)
   dotenv-rails
   factory_bot_rails (~> 6.2)
   importmap-rails

@@ -10,6 +10,7 @@ class VenueDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    insta_tag: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -22,6 +23,7 @@ class VenueDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
+    insta_tag
     created_at
     updated_at
   ].freeze
@@ -31,6 +33,7 @@ class VenueDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    insta_tag
     created_at
     updated_at
   ].freeze
@@ -40,6 +43,7 @@ class VenueDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     name
+    insta_tag
   ].freeze
 
   # COLLECTION_FILTERS
@@ -57,7 +61,8 @@ class VenueDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how venues are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(venue)
-  #   "Venue ##{venue.id}"
-  # end
+  def display_resource(venue)
+    "#{venue.name}"
+  end
+
 end

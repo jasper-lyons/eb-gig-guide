@@ -15,6 +15,10 @@
         <%= form.label :end_date %>
         <%= form.date_field :end_date %>
       </div>
+            <div>
+        <%= form.label :include_socials %>
+        <%= form.check_box :include_socials %>
+      </div>
       <%= form.submit "Create", class: "px-3 py-2 h-auto" %>
     </div>
   <% end %>
@@ -39,7 +43,11 @@
           <% gigs.each do |gig| %>
             <br/>
             <div><%= gig.name %><div/>
-            <div><%= gig.venue %></div>
+            <div><%= gig.venue.name %></div>
+            <% if params[:include_socials] == '1' %>
+              <div><%= gig.venue.insta_tag %></div>
+              <div><%= gig.socials %></div>
+            <% end %>
             <div><%= gig.doors.strftime("%l:%M%p").strip.downcase %></div>
           <% end %>
         </div>

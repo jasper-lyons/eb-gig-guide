@@ -14,7 +14,7 @@ class GigDashboard < Administrate::BaseDashboard
     event_link: Field::String,
     name: Field::String,
     socials: Field::String,
-    venue: Field::String,
+    venue: Field::BelongsTo,
     acts: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
