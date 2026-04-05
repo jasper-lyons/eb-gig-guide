@@ -10,12 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_24_165226) do
-  create_table "act_gigs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
+ActiveRecord::Schema[7.0].define(version: 2026_04_05_160022) do
   create_table "acts", force: :cascade do |t|
     t.string "name"
     t.string "weblink"
@@ -51,12 +46,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_24_165226) do
     t.date "date"
     t.time "doors"
     t.string "event_link"
+    t.integer "venue_id"
+    t.index ["venue_id"], name: "index_gigs_on_venue_id"
   end
 
   create_table "subscribers", force: :cascade do |t|
-    t.string "name"
     t.string "email"
-    t.string "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,8 +60,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_24_165226) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "insta_tag"
   end
 
   add_foreign_key "acts_gigs", "acts"
   add_foreign_key "acts_gigs", "gigs"
+  add_foreign_key "gigs", "venues"
 end

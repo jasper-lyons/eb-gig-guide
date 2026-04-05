@@ -1,4 +1,5 @@
 class Gig < ApplicationRecord
+  belongs_to :venue, optional: true
   has_many :acts_gig
   has_many :acts, through: :acts_gig
 
