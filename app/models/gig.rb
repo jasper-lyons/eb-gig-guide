@@ -1,7 +1,7 @@
 class Gig < ApplicationRecord
   belongs_to :venue, optional: true
   has_many :acts_gig
-  has_many :acts, through: :acts_gig
+  has_many :acts, -> { order("acts_gigs.position ASC") }, through: :acts_gig
 
   before_save :add_at_symbol_to_socials
 

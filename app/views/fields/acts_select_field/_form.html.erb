@@ -1,0 +1,21 @@
+<%
+  field_name = "#{f.object_name}[act_ids][]"
+%>
+
+<div class="field-unit__label">
+  <%= f.label field.attribute %>
+</div>
+<div class="field-unit__field">
+  <div
+    data-controller="acts-select"
+    data-acts-select-search-url-value="/admin/acts/search"
+  >
+    <%# Hidden sentinel so Rails clears all acts when none are selected %>
+    <input type="hidden" name="<%= field_name %>" value="">
+    <select name="<%= field_name %>" multiple data-acts-select-target="select">
+      <% Array(field.data).each do |act| %>
+        <option value="<%= act.id %>" selected><%= act.name %></option>
+      <% end %>
+    </select>
+  </div>
+</div>

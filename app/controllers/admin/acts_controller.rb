@@ -1,5 +1,12 @@
 module Admin
   class ActsController < Admin::ApplicationController
+    def search
+      acts = Act.where("name ILIKE ?", "%#{ActiveRecord::Base.sanitize_sql_like(params[:q].to_s)}%")
+                .order(:name)
+                .limit(20)
+      render json: acts.map { |a| { id: a.id, name: a.name } }
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

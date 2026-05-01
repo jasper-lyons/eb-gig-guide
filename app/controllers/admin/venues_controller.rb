@@ -1,5 +1,12 @@
 module Admin
   class VenuesController < Admin::ApplicationController
+    def search
+      venues = Venue.where("name ILIKE ?", "%#{ActiveRecord::Base.sanitize_sql_like(params[:q].to_s)}%")
+                    .order(:name)
+                    .limit(20)
+      render json: venues.map { |v| { id: v.id, name: v.name } }
+    end
+
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #

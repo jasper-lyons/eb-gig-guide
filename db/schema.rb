@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_04_05_160022) do
+ActiveRecord::Schema[7.0].define(version: 2026_05_01_000001) do
+  create_table "act_gigs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "acts", force: :cascade do |t|
     t.string "name"
     t.string "weblink"
@@ -24,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_05_160022) do
     t.integer "gig_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
     t.index ["act_id"], name: "index_acts_gigs_on_act_id"
     t.index ["gig_id"], name: "index_acts_gigs_on_gig_id"
   end
@@ -51,7 +57,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_05_160022) do
   end
 
   create_table "subscribers", force: :cascade do |t|
+    t.string "name"
     t.string "email"
+    t.string "string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

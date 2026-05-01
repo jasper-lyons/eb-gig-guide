@@ -7,48 +7,47 @@ module Admin
     def default_sorting_direction
       :desc
     end
-    # Overwrite any of the RESTful controller actions to implement custom behavior
-    # For example, you may want to send an email after a foo is updated.
-    #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
 
-    # Override this method to specify custom lookup behavior.
-    # This will be used to set the resource for the `show`, `edit`, and `update`
-    # actions.
-    #
-    # def find_resource(param)
-    #   Foo.find_by!(slug: param)
-    # end
+    def resource_params
+      raw = super.to_h.with_indifferent_access
 
-    # The result of this lookup will be available as `requested_resource`
+      if raw[:venue_id].to_s.start_with?("new:")
+        name = raw[:venue_id].delete_prefix("new:")
+        raw[:venue_id] = Venue.find_or_create_by!(name: name).id
+      end
 
-    # Override this if you have certain roles that require a subset
-    # this will be used to set the records shown on the `index` action.
-    #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
+      if raw[:act_ids].is_a?(Array)
+        @act_ids_in_order = raw[:act_ids].reject(&:blank?).map do |id|
+          if id.to_s.start_with?("new:")
+            Act.find_or_create_by!(name: id.delete_prefix("new:")).id.to_s
+          else
+            id
+          end
+        end
+        raw[:act_ids] = @act_ids_in_order
+      end
 
-    # Override `resource_params` if you want to transform the submitted
-    # data before it's persisted. For example, the following would turn all
-    # empty values into nil values. It uses other APIs such as `resource_class`
-    # and `dashboard`:
-    #
-    # def resource_params
-    #   params.require(resource_class.model_name.param_key).
-    #     permit(dashboard.permitted_attributes).
-    #     transform_values { |value| value == "" ? nil : value }
-    # end
+      ActionController::Parameters.new(raw).permit!
+    end
 
-    # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
-    # for more information
+    def create
+      @resource = resource_class.new(resource_params)
+      if @resource.save
+        update_act_positions(@resource)
+        redirect_to [:admin, @resource], notice: translate_with_resource("create.success")
+      else
+        render :new, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if requested_resource.update(resource_params)
+        update_act_positions(requested_resource)
+        redirect_to [:admin, requested_resource], notice: translate_with_resource("update.success")
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
 
     def social_post
       @start_date = Date.parse(params[:start_date]) rescue nil
@@ -58,6 +57,15 @@ module Admin
         @days = Gig.where(date: @start_date..@end_date)
                    .order(date: :asc, doors: :asc)
                    .group_by { |gig| gig.date }
+      end
+    end
+
+    private
+
+    def update_act_positions(gig)
+      return unless @act_ids_in_order
+      @act_ids_in_order.each_with_index do |act_id, idx|
+        gig.acts_gig.find_by(act_id: act_id)&.update_column(:position, idx)
       end
     end
   end

@@ -13,9 +13,13 @@ Rails.application.routes.draw do
         get 'social_post', to: 'gigs#social_post'
       end
     end
-    resources :venues
+    resources :venues do
+      collection { get :search }
+    end
     resources :subscribers
-    resources :acts
+    resources :acts do
+      collection { get :search }
+    end
 
     root to: 'gigs#index'
   end

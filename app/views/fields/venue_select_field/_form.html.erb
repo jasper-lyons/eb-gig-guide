@@ -1,0 +1,20 @@
+<%
+  field_name = "#{f.object_name}[venue_id]"
+%>
+
+<div class="field-unit__label">
+  <%= f.label field.permitted_attribute %>
+</div>
+<div class="field-unit__field">
+  <div
+    data-controller="venue-select"
+    data-venue-select-search-url-value="/admin/venues/search"
+  >
+    <select name="<%= field_name %>" data-venue-select-target="select">
+      <option value=""></option>
+      <% if field.data %>
+        <option value="<%= field.data.id %>" selected><%= field.data.name %></option>
+      <% end %>
+    </select>
+  </div>
+</div>
