@@ -381,7 +381,7 @@ skipped = 0
 unmapped = []
 
 Gig.find_each do |gig|
-  raw = gig.venue&.strip
+  raw = gig[:venue]&.strip
   next if raw.blank?
 
   canonical = VENUE_ALIASES[raw]
